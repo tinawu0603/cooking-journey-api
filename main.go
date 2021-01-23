@@ -33,7 +33,7 @@ func handleRequests() {
 	myRouter.HandleFunc("/recipes/{id}", getRecipeService).Methods("GET")
 	myRouter.HandleFunc("/recipes/{id}", updateRecipeService).Methods("PUT")
 	// log.Fatal(http.ListenAndServe(":10000", myRouter))
-	http.ListenAndServe(":8000", myRouter)
+	http.ListenAndServe(":8080", myRouter)
 }
 
 func main() {
