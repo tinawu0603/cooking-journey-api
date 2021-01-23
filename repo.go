@@ -60,10 +60,20 @@ func createNewRecipeRepo(recipe Recipe) {
 		if err != nil {
 			panic(err.Error())
 		}
-		fmt.Println(recipe.Ingredients)
 		// Create each Ingredient in this recipe
+		// First, have to get the recipe's generated ID from recipes table
+		recipeResult, err := db.Query("SELECT id from recipes WHERE name = ?", recipe.Name)
+		if err != nil {
+			panic(err.Error())
+		}
+		defer recipeResult.Close()
+		for recipeResult.Next() {
+			err := recipeResult.Scan(&recipe.Id)
+			if err != nil {
+				panic(err.Error())
+			}
+		}
 		for _, ing := range recipe.Ingredients {
-			fmt.Println(ing.Name)
 			ingStmt, err := db.Prepare("INSERT INTO ingredients(name, quantity, unit, recipeId) VALUES(?, ?, ?, ?)")
 			if err != nil {
 				panic(err.Error())

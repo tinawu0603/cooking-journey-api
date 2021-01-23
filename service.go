@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strconv"
@@ -26,9 +25,7 @@ func createNewRecipeService(w http.ResponseWriter, r *http.Request) {
 		panic(err.Error())
 	}
 	var recipe Recipe
-	fmt.Println(reqBody)
 	json.Unmarshal(reqBody, &recipe)
-	fmt.Println(recipe)
 	recipe.DateCreated = time.Now()
 	createNewRecipeRepo(recipe)
 	json.NewEncoder(w).Encode(recipe)
