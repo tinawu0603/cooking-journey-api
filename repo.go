@@ -30,9 +30,9 @@ func getAllRecipesRepo() []Recipe {
 	return recipes
 }
 
-func getRecipeRepo(name string) Recipe {
+func getRecipeRepo(id string) Recipe {
 	var recipe Recipe
-	recipeResult, err := db.Query("SELECT * from recipes WHERE name = ?", name)
+	recipeResult, err := db.Query("SELECT * from recipes WHERE id = ?", id)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -110,7 +110,7 @@ func updateRecipeRepo(recipe Recipe) {
 	}
 }
 
-func deleteRecipeRepo(recipeId int) {
+func deleteRecipeRepo(recipeId string) {
 	recipesStmt, err := db.Prepare("DELETE FROM recipes WHERE id = ?")
 	if err != nil {
 		panic(err.Error())

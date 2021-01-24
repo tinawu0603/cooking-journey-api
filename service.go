@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
-	"strconv"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -16,7 +15,7 @@ func getAllRecipesService(w http.ResponseWriter, r *http.Request) {
 
 func getRecipeService(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	json.NewEncoder(w).Encode(getRecipeRepo(vars["name"]))
+	json.NewEncoder(w).Encode(getRecipeRepo(vars["id"]))
 }
 
 func createNewRecipeService(w http.ResponseWriter, r *http.Request) {
@@ -44,6 +43,6 @@ func updateRecipeService(w http.ResponseWriter, r *http.Request) {
 
 func deleteRecipe(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	id, _ := strconv.Atoi(vars["id"])
+	id, _ := vars["id"]
 	deleteRecipeRepo(id)
 }
